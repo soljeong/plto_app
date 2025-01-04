@@ -26,7 +26,7 @@ class APIClient:
             self.token = response.json()[0].get("token")
             return self.token
         else:
-            raise Exception("Failed to obtain token")
+            raise Exception(f"Failed to obtain token. {response.status_code}")
 
     def get_data(self, endpoint, search_word):
         if not self.token:
