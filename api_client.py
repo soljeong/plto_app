@@ -40,8 +40,6 @@ class APIClient:
             "Authorization": f"Token {self.token}",
         }
         body = {
-            "sdate": "2024-09-01",  # 예시 시작일
-            "edate": "2025-01-31",  # 예시 종료일
             "start": 0,
             "length": 500,
             "date_type": "wdate",
