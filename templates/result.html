@@ -14,27 +14,20 @@
 
         <a href="/" class="btn btn-primary mb-4">홈으로 돌아가기</a>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>상품명</th>
-                        <th>SKU</th>
-                        <th>재고코드</th>
-                        <th>실재고수량</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in order_table %}
-                    <tr>
-                        <td>{{ item[0] }}</td>
-                        <td>{{ item[1] }}</td>
-                        <td>{{ item[2] }}</td>
-                        <td>{{ item[3] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="row">
+            {% for item in order_table %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ item[4] }}" class="card-img-top" alt="상품 이미지" style="max-height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item[0] }}</h5>
+                        <p class="card-text"><strong>SKU:</strong> {{ item[1] }}</p>
+                        <p class="card-text"><strong>재고코드:</strong> {{ item[2] }}</p>
+                        <p class="card-text"><strong>실재고수량:</strong> {{ item[3] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 
