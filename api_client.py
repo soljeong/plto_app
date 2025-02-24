@@ -1,5 +1,7 @@
 # api_client.py
 import requests
+from datetime import datetime, timedelta
+
 
 class APIClient:
     def __init__(self,  client_api_key, client_id, client_secret):
@@ -39,9 +41,14 @@ class APIClient:
             "x-api-key": self.client_api_key,
             "Authorization": f"Token {self.token}",
         }
+        # 현재 날짜를 기준으로 3개월 전 날짜 계산
+        three_months_ago = (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d')
+        # 내일 날짜 계산
+        tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+
         body = {
-            "sdate": "2024-09-01",  # 예시 시작일
-            "edate": "2025-01-31",  # 예시 종료일
+            "sdate": three_months_ago,  # 3개월 전 날짜
+            "edate": tomorrow,  # 내일 날짜
             "start": 0,
             "length": 500,
             "date_type": "wdate",
