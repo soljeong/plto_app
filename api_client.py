@@ -95,4 +95,5 @@ class APIClient:
                 joined_data.append(joined_item)
 
         # 필요한 필드만 추출하여 리스트로 변환
-        return [(item['shop_sale_name'], item['sku_cd'], item['stock_cd'], item['stock_cnt_real']) for item in joined_data]
+        return [(item['shop_sale_name'], item['sku_cd'], item['stock_cd'], item['stock_cnt_real'], item['prod_img']) for item in joined_data]
+        # return joined_data
