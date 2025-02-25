@@ -55,7 +55,7 @@ def result():
     # 예를 들어, API에 요청을 보내거나 데이터를 처리할 수 있습니다.
     try:
         # API 클라이언트를 사용하여 데이터를 가져오는 예시
-        data = api_client.get_data("orders", user_input)
+        data = api_client.get_orders(user_input)
         order_table = api_client.process_data(data)
 
         return render_template('result.html', order_table=order_table, user_input=user_input)

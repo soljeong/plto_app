@@ -30,7 +30,7 @@ class APIClient:
         else:
             raise Exception(f"Failed to obtain token. {response.status_code}")
 
-    def get_data(self, endpoint, search_word):
+    def get_data(self, endpoint, body):
         if not self.token:
             self.get_token()
         
@@ -41,21 +41,7 @@ class APIClient:
             "x-api-key": self.client_api_key,
             "Authorization": f"Token {self.token}",
         }
-        # 현재 날짜를 기준으로 3개월 전 날짜 계산
-        three_months_ago = (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d')
-        # 내일 날짜 계산
-        tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
 
-        body = {
-            "sdate": three_months_ago,  # 3개월 전 날짜
-            "edate": tomorrow,  # 내일 날짜
-            "start": 0,
-            "length": 500,
-            "date_type": "wdate",
-            "status": ["ALL"],
-            "multi_type": "invoice_no",
-            "multi_search_word": search_word,
-        }
         response = requests.post(url, headers=headers, json=body)
         
         if response.status_code == 200:
@@ -74,6 +60,27 @@ class APIClient:
                 return response.json()
         
         raise Exception(f"Failed to get data: {response.status_code}")
+    
+    def get_orders(self, search_word):
+
+        # 현재 날짜를 기준으로 3개월 전 날짜 계산
+        three_months_ago = (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d')
+        # 내일 날짜 계산
+        tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+
+        body = {
+            "sdate": three_months_ago,  # 3개월 전 날짜
+            "edate": tomorrow,  # 내일 날짜
+            "start": 0,
+            "length": 500,
+            "date_type": "wdate",
+            "status": ["ALL"],
+            "multi_type": "invoice_no",
+            "multi_search_word": search_word,
+        }
+
+        return self.get_data("orders", body)
+
     
     def process_data(self, order_list):
 
