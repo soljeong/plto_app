@@ -56,7 +56,13 @@ def result():
     try:
         # API 클라이언트를 사용하여 데이터를 가져오는 예시
         data = api_client.get_orders(user_input)
-        order_table = api_client.process_data(data)
+        processed_data = api_client.process_data(data)
+
+        # 필요한 필드를 미리 리스트로 선언
+        fields = ['shop_sale_name', 'sku_cd', 'stock_cd', 'stock_cnt_real', 'prod_img']
+        
+        # 필요한 필드만 추출하여 리스트로 변환
+        order_table = [(item[field] for field in fields) for item in processed_data]
 
         return render_template('result.html', order_table=order_table, user_input=user_input)
     except Exception as e:
